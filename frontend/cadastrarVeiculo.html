@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Veiculo</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+      <p>🚗 Sistema de Gerenciamento Automotivo</p>
+    </header>
+
+    <div class="form-container">
+        <h2>Cadastrar Veículo</h2>
+
+        <input type="text" id="modeloInput" placeholder="Modelo" />
+        <input type="text" id="marcaInput" placeholder="Marca" />
+        <input type="text" id="corInput" placeholder="Cor" />
+        <input type="text" id="precoInput" placeholder="Preço" />
+        <input type="text" id="quilometragemInput" placeholder="Quilometragem" />
+
+        <label for="opcoes">Disponibilidade</label>
+        <select id="opcoes">
+            <option value="1">Disponível</option>
+            <option value="2">Indisponível</option>
+        </select>
+
+        <button onclick="adicionarCarro()">Cadastrar</button>
+        <a class="index" href="index.html">Voltar</a>
+    </div>
+    <script src="./js/script.js"></script>
+</body>

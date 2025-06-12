@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Gerenciamento Automotivo</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <p>🚗 Sistema de Gerenciamento Automotivo</p>
+    </header>
+    <div class="container">
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Buscar veiculo..." />
+        <button onclick="search()">Buscar</button>
+      </div>
+      
+      <div class="section">
+        <section id="cardContainer" class="cardContainer"></section>
+        <a class="index" href="cadastrarVeiculo.html">Cadastrar novo Veiculo</a>
+      </div>
+
+    </div>
+
+    <div id="cardContainer"></div>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>
