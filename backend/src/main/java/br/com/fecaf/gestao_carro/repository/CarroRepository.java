@@ -9,26 +9,19 @@ import org.springframework.data.repository.query.Param;
 import br.com.fecaf.gestao_carro.model.Carro;
 
 public interface CarroRepository extends JpaRepository<Carro, Integer> {
-    
-    @Query("SELECT c FROM Carro c WHERE c.disponibilidade = true AND (" +
-            "LOWER(c.modelo) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "LOWER(c.marca) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "LOWER(c.cor) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "CAST(c.preco AS string) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "CAST(c.quilometragem AS string) LIKE LOWER(CONCAT('%', :termo, '%')))")
-    List<Carro> buscarDisponiveisPorTermo(@Param("termo") String termo);
+        @Query(value = """
+                            SELECT * FROM veiculos c
+                            WHERE
+                                LOWER(c.cor) LIKE CONCAT('%', LOWER(:termo), '%')
+                                OR LOWER(c.marca) LIKE CONCAT('%', LOWER(:termo), '%')
+                                OR LOWER(c.modelo) LIKE CONCAT('%', LOWER(:termo), '%')
+                                OR CAST(c.preco AS CHAR) LIKE CONCAT('%', :termo, '%')
+                                OR CAST(c.quilometragem AS CHAR) LIKE CONCAT('%', :termo, '%')
+                                OR (
+                                    (:termo LIKE '%disponivel%' AND :termo NOT LIKE '%indisponivel%' AND c.disponibilidade = 1)
+                                    OR (:termo LIKE '%indisponivel%' AND c.disponibilidade = 0)
+                                )
+                        """, nativeQuery = true)
+        List<Carro> buscarPorTermo(@Param("termo") String termo);
 
-    @Query("SELECT c FROM Carro c WHERE c.disponibilidade = false AND (" +
-            "LOWER(c.modelo) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "LOWER(c.marca) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "LOWER(c.cor) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "CAST(c.preco AS string) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "CAST(c.quilometragem AS string) LIKE LOWER(CONCAT('%', :termo, '%')))")
-    List<Carro> buscarIndisponiveisPorTermo(@Param("termo") String termo);
-
-    @Query("SELECT c FROM Carro c WHERE c.disponibilidade = true")
-    List<Carro> buscarDisponiveis();
-
-    @Query("SELECT c FROM Carro c WHERE c.disponibilidade = false")
-    List<Carro> buscarIndisponiveis();
 }

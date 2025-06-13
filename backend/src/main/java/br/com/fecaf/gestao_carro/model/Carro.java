@@ -21,17 +21,16 @@ public class Carro {
     private String marca;
     private String modelo;
 
-    @Column(precision = 10, scale = 2) // Exemplo: até 10 dígitos, 2 decimais
+    @Column(precision = 10, scale = 2)
     private BigDecimal preco;
 
     private int quilometragem;
     private boolean disponibilidade;
 
     public Carro() {
-        // Construtor padrão
+        
     }
 
-    // Getters e Setters
     public int getId() {
         return id;
     }

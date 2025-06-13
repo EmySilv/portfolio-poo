@@ -14,17 +14,17 @@ public class CarroService {
     @Autowired
     private CarroRepository carroRepository;
 
-    // Lista todos os carros disponíveis
+    
     public List<Carro> listarCarros() {
         return carroRepository.findAll();
     }
 
-    // Salva um novo carro
+   
     public Carro salvarCarro(Carro carro) {
         return carroRepository.save(carro);
     }
 
-    // Deleta um carro pelo id
+    
     public void deletarCarro(int id) {
         if (!carroRepository.existsById(id)) {
             throw new RuntimeException("Carro não encontrado com o ID: " + id);
@@ -32,7 +32,7 @@ public class CarroService {
         carroRepository.deleteById(id);
     }
 
-    // Atualiza um carro existente
+   
     public Carro atualizarCarro(int id, Carro carroDetails) {
         Optional<Carro> carroOptional = carroRepository.findById(id);
 
@@ -41,8 +41,8 @@ public class CarroService {
             carro.setModelo(carroDetails.getModelo());
             carro.setMarca(carroDetails.getMarca());
             carro.setQuilometragem(carroDetails.getQuilometragem());
-            carro.setDisponibilidade(carroDetails.isDisponibilidade()); // corrigido para isDisponibilidade()
-            carro.setPreco(carroDetails.getPreco()); // BigDecimal no modelo, manter assim
+            carro.setDisponibilidade(carroDetails.isDisponibilidade()); 
+            carro.setPreco(carroDetails.getPreco()); 
             carro.setCor(carroDetails.getCor());
 
             return carroRepository.save(carro);
@@ -51,28 +51,20 @@ public class CarroService {
         }
     }
 
-
-    // Busca carros por termo em vários campos
+   
     public List<Carro> buscarCarrosPorTermo(String termo) {
         if (termo == null || termo.trim().isEmpty()) {
-            return listarCarros(); // Retorna todos os carros caso não tenha termo
+            return listarCarros(); 
         }
 
         termo = termo.trim().toLowerCase();
 
-        switch (termo) {
-            case "disponivel", "disponível", "true", "sim" -> {
-                // Retorna somente carros disponíveis
-                return carroRepository.buscarDisponiveis();
-            }
-            case "indisponivel", "indisponível", "false", "nao", "não" -> {
-                // Retorna somente carros indisponíveis
-                return carroRepository.buscarIndisponiveis();
-            }
-            default -> {
-                // Para qualquer outro termo, retorna lista vazia ou todos os carros (aqui escolhi lista vazia)
-                return List.of();
-            }
+        List<Carro> carros = carroRepository.buscarPorTermo(termo);
+
+        if (carros.isEmpty()) {
+            throw new RuntimeException("Nenhum carro encontrado com o termo: " + termo);
         }
+
+        return carros;
     }
 }

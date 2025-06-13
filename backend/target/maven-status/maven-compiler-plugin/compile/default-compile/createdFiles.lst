@@ -1,0 +1,9 @@
+br\com\fecaf\gestao_carro\model\Carro.class
+br\com\fecaf\gestao_carro\controller\Marca.class
+br\com\fecaf\gestao_carro\controller\CarroController.class
+br\com\fecaf\gestao_carro\App.class
+br\com\fecaf\gestao_carro\repository\ModeloRepository.class
+br\com\fecaf\gestao_carro\controller\Modelo.class
+br\com\fecaf\gestao_carro\repository\MarcaRepository.class
+br\com\fecaf\gestao_carro\services\CarroService.class
+br\com\fecaf\gestao_carro\repository\CarroRepository.class
